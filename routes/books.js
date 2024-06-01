@@ -26,14 +26,16 @@ router.get('/new', (req, res, next) => {
 });
 
 /* POST new book form. */
-router.post('/new', (req, res, next) => {
+router.post('/', asyncHandler(async (req, res, next) => {
+  const book = await Book.create(req.body);
   res.redirect("/books")
-});
+}));
 
 /* Book detail page. */
-router.get('/:id', (req, res, next) => {
-  res.render("books/update-book")
-});
+router.get('/update/:id', asyncHandler(async (req, res, next) => {
+  const book = await Book.findByPk(req.params.id);
+  res.render("books/update-book", { book })
+}));
 
 /* POST update book details. */
 router.post('/:id', (req, res, next) => {
