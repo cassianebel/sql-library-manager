@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var booksRouter = require('./routes/books');
 
 const { sequelize } = require('./models/index');
 
@@ -13,7 +13,7 @@ var app = express();
 
 (async () => {
   // sync all tables
-  await sequelize.sync({ force: true});
+  await sequelize.sync();
   // test the connection
   await sequelize.authenticate();
   console.log('Connection to the database successful!');
@@ -30,7 +30,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/books', booksRouter);
 
 // test error handling
   // app.get('/error', (req, res, next) => {
