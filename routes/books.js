@@ -26,26 +26,30 @@ router.get('/new', (req, res, next) => {
 });
 
 /* POST new book form. */
-router.post('/', asyncHandler(async (req, res, next) => {
+router.post('/new', asyncHandler(async (req, res, next) => {
   const book = await Book.create(req.body);
   res.redirect("/books")
 }));
 
 /* Book detail page. */
-router.get('/update/:id', asyncHandler(async (req, res, next) => {
+router.get('/:id/update', asyncHandler(async (req, res, next) => {
   const book = await Book.findByPk(req.params.id);
   res.render("books/update-book", { book })
 }));
 
 /* POST update book details. */
-router.post('/:id', (req, res, next) => {
+router.post('/:id/update', asyncHandler(async (req, res, next) => {
+  const book = await Book.findByPk(req.params.id);
+  await book.update(req.body);
   res.redirect("/books")
-});
+}));
 
 /* POST delete book. */
-router.post('/:id/delete', (req, res, next) => {
+router.post('/:id/delete', asyncHandler(async (req, res, next) => {
+  const book = await Book.findByPk(req.params.id);
+  await book.destroy();
   res.redirect("/books")
-});
+}));
 
 
 module.exports = router;
