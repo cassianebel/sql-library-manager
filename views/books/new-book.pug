@@ -2,19 +2,39 @@ extends ../layout
 
 block content
   h1 New Book
+
+  if(errors)
+    h2.error Oooops!
+    ul.error
+      each error in errors
+        li
+          =error.message
+
   form(action='/books/new', method='POST')
     p 
       label(for='title') Title
-      input(name='title', id='title', type='text')
+      if(book)
+        input(name='title', id='title', type='text', value=book.title)
+      else
+        input(name='title', id='title', type='text')
     p 
       label(for='author') Author
-      input(name='author', id='author', type='text')
+      if(book)
+        input(name='author', id='author', type='text', value=book.author)
+      else
+        input(name='author', id='author', type='text')
     p 
       label(for='genre') Genre 
-      input(name='genre', id='genre', type='text')
+      if(book)
+        input(name='genre', id='genre', type='text', value=book.genre)
+      else
+        input(name='genre', id='genre', type='text')
     p 
       label(for='year') Year 
-      input(name='year', id='year', type='text')
+      if(book)
+        input(name='year', id='year', type='text', value=book.year)
+      else
+        input(name='year', id='year', type='text')
     p 
       input(type='submit', value='Create New Book')
     p 
