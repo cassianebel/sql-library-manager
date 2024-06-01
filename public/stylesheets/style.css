@@ -14,7 +14,7 @@ a {
     color: black;
   }
 
-a.button, input[type=submit] {
+a.button, button.button, input[type=submit] {
   color: white;
   background: #019875;
   font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
