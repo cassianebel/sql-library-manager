@@ -97,7 +97,6 @@ input[type=text] {
 }
 
 .pagination {
-  text-align: center;
   margin-top: 40px;
 }
 
@@ -107,4 +106,12 @@ input[type=text] {
 
 a.active {
   background: #000;
+}
+
+.search {
+  margin: 40px 0;
+}
+
+.search input {
+  margin-left: 0;
 }

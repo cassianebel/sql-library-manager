@@ -3,12 +3,12 @@ extends ../layout
 block content
   h1 Books
 
-  form(action='/books/search', method='GET')
-    input(type='text', name='query', placeholder='Search...')
-    button(type='submit', class='button') Search 
-
   p 
     a(href='/books/new', class="button") Create New Book
+
+  form(action='/books/search', method='GET', class='search')
+    input(type='text', name='query', placeholder='Search...')
+    button(type='submit', class='button') Search 
 
   if books.length
     table 
@@ -29,4 +29,4 @@ block content
   
   .pagination
     - for (var i = 1; i <= totalPages; i++)
-      a(href=`/books?page=${i}`, class=(i === currentPage ? 'active button' : 'button'))= i
+      a(href=`${url}page=${i}`, class=(i === currentPage ? 'active button' : 'button'))= i
