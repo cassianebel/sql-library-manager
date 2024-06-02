@@ -17,8 +17,34 @@ function asyncHandler(cb){
 
 /* GET home page. */
 router.get('/', asyncHandler(async (req, res, next) => {
-  const books = await Book.findAll();
-  res.render("books/index", { books })
+  // const books = await Book.findAll();
+  // res.render("books/index", { books })
+
+  // Get page from query string parameters or default to first page
+  const page = parseInt(req.query.page) || 1;
+
+  // Set the number of items per page
+  const pageSize = 5;
+
+  // Calculate the offset
+  const offset = (page - 1) * pageSize;
+
+  // Use findAndCountAll to get total count and limited rows
+  const result = await Book.findAndCountAll({
+    where: {}, // your where conditions, or an empty object if you have none
+    offset: offset,
+    limit: pageSize,
+  });
+
+  // Calculate the total pages
+  const totalPages = Math.ceil(result.count / pageSize);
+
+
+  res.render("books/index", {
+    books: result.rows,
+    totalPages,
+    currentPage: page,
+  });
 }));
 
 /* GET new book form. */

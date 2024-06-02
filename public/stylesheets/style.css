@@ -95,3 +95,16 @@ input[type=text] {
 .error {
   color: rgb(236, 15, 15);
 }
+
+.pagination {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.pagination a {
+  margin: 0 10px;
+}
+
+a.active {
+  background: #000;
+}

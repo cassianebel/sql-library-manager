@@ -26,3 +26,7 @@ block content
             td= book.author
             td= book.genre
             td= book.year
+  
+  .pagination
+    - for (var i = 1; i <= totalPages; i++)
+      a(href=`/books?page=${i}`, class=(i === currentPage ? 'active button' : 'button'))= i
