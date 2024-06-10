@@ -10,7 +10,7 @@ block content
         li
           =error.message
 
-  form(method='POST', action='/books/' + book.id + '/update' )
+  form(method='POST', action='/books/' + book.id )
     p 
       label(for='title') Title
       input(name='title', id='title', type='text', value=book.title)

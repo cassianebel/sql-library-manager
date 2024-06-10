@@ -72,41 +72,6 @@ router.post('/new', asyncHandler(async (req, res, next) => {
   }
 }));
 
-
-/* Book detail page. */
-router.get('/:id/update', asyncHandler(async (req, res, next) => {
-  const book = await Book.findByPk(req.params.id);
-  res.render("books/update-book", { book })
-}));
-
-
-/* POST update book details. */
-router.post('/:id/update', asyncHandler(async (req, res, next) => {
-  let book;
-  try {
-    book = await Book.findByPk(req.params.id);
-    await book.update(req.body);
-    res.redirect("/books")
-  } catch (error) {
-    if(error.name === "SequelizeValidationError") {
-      book = await Book.build(req.body);
-      book.id = req.params.id;
-      res.render("books/update-book", { book, errors: error.errors })
-    } else {
-      throw error;
-    }
-  }
-}));
-
-
-/* POST delete book. */
-router.post('/:id/delete', asyncHandler(async (req, res, next) => {
-  const book = await Book.findByPk(req.params.id);
-  await book.destroy();
-  res.redirect("/books")
-}));
-
-
 /* Search for books. */
 router.get('/search', asyncHandler(async (req, res, next) => {
   let search = req.query.query;
@@ -160,6 +125,40 @@ router.get('/search', asyncHandler(async (req, res, next) => {
     currentPage: page,
     url: url,
   });
+}));
+
+
+/* Book detail page. */
+router.get('/:id', asyncHandler(async (req, res, next) => {
+  const book = await Book.findByPk(req.params.id);
+  res.render("books/update-book", { book })
+}));
+
+
+/* POST update book details. */
+router.post('/:id', asyncHandler(async (req, res, next) => {
+  let book;
+  try {
+    book = await Book.findByPk(req.params.id);
+    await book.update(req.body);
+    res.redirect("/books")
+  } catch (error) {
+    if(error.name === "SequelizeValidationError") {
+      book = await Book.build(req.body);
+      book.id = req.params.id;
+      res.render("books/update-book", { book, errors: error.errors })
+    } else {
+      throw error;
+    }
+  }
+}));
+
+
+/* POST delete book. */
+router.post('/:id/delete', asyncHandler(async (req, res, next) => {
+  const book = await Book.findByPk(req.params.id);
+  await book.destroy();
+  res.redirect("/books")
 }));
 
 
